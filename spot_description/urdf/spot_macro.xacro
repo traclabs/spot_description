@@ -5,11 +5,11 @@
     arm:=false
     feet:=false
     gripperless:=false
-    custom_gripper_base_link:=''
+    custom_gripper_base_link:='palm_link'
     tf_prefix
     include_transmissions=false
     leg_damping:='0.0'
-    leg_friction:='0.0'"> 
+    leg_friction:='0.0'">
     <!-- 1.0, 0.2. First time it walked we used damping:=1.0 and friction:=0.2. Setting it back to zeros it was still walking -->
 
         <link name="${tf_prefix}body">
@@ -88,7 +88,7 @@
             <parent link="${tf_prefix}body" />
             <child link="${tf_prefix}front_left_hip" />
             <limit effort="45" velocity="17.647" lower="-0.78539816339744827899"
-                upper="0.78539816339744827899" /> 
+                upper="0.78539816339744827899" />
             <dynamics damping="${leg_damping}" friction="${leg_friction}" />
         </joint>
         <xacro:if value="${include_transmissions}">
@@ -130,7 +130,7 @@
             <child link="${tf_prefix}front_left_upper_leg" />
             <limit effort="45" velocity="17.647" lower="-0.89884456477707963539"
                 upper="2.2951079663725435509" />
-            <dynamics damping="${leg_damping}" friction="${leg_friction}" />  
+            <dynamics damping="${leg_damping}" friction="${leg_friction}" />
         </joint>
         <xacro:if value="${include_transmissions}">
 					<transmission name="${tf_prefix}front_left_hip_y_tran">
@@ -213,7 +213,7 @@
             <child link="${tf_prefix}front_right_hip" />
             <limit effort="45" velocity="17.647" lower="-0.78539816339744827899"
                 upper="0.78539816339744827899" />
-            <dynamics damping="${leg_damping}" friction="${leg_friction}" />    
+            <dynamics damping="${leg_damping}" friction="${leg_friction}" />
         </joint>
         <xacro:if value="${include_transmissions}">
 					<transmission name="${tf_prefix}front_right_hip_x_tran">
@@ -337,7 +337,7 @@
             <child link="${tf_prefix}rear_left_hip" />
             <limit effort="45" velocity="17.647" lower="-0.78539816339744827899"
                 upper="0.78539816339744827899" />
-            <dynamics damping="${leg_damping}" friction="${leg_friction}" />    
+            <dynamics damping="${leg_damping}" friction="${leg_friction}" />
         </joint>
         <xacro:if value="${include_transmissions}">
 					<transmission name="${tf_prefix}rear_left_hip_x_tran">
@@ -378,7 +378,7 @@
             <child link="${tf_prefix}rear_left_upper_leg" />
             <limit effort="45" velocity="17.647" lower="-0.89884456477707963539"
                 upper="2.2951079663725435509" />
-            <dynamics damping="${leg_damping}" friction="${leg_friction}" />    
+            <dynamics damping="${leg_damping}" friction="${leg_friction}" />
         </joint>
         <xacro:if value="${include_transmissions}">
 					<transmission name="${tf_prefix}rear_left_hip_y_tran">
@@ -425,7 +425,7 @@
             <axis xyz="0 1 0" />
             <parent link="${tf_prefix}rear_left_upper_leg" />
             <child link="${tf_prefix}rear_left_lower_leg" />
-            <limit effort="115" velocity="12.0" lower="-2.7929" upper="-0.267153" /> 
+            <limit effort="115" velocity="12.0" lower="-2.7929" upper="-0.267153" />
             <dynamics damping="${leg_damping}" friction="${leg_friction}" />
         </joint>
         <xacro:if value="${include_transmissions}">
@@ -502,7 +502,7 @@
             <child link="${tf_prefix}rear_right_upper_leg" />
             <limit effort="45" velocity="17.647" lower="-0.89884456477707963539"
                 upper="2.2951079663725435509" />
-            <dynamics damping="${leg_damping}" friction="${leg_friction}" />    
+            <dynamics damping="${leg_damping}" friction="${leg_friction}" />
         </joint>
         <xacro:if value="${include_transmissions}">
 					<transmission name="${tf_prefix}rear_right_hip_y_tran">

@@ -6,7 +6,7 @@
   <!-- Macros for loading the ROS 2 control tags -->
   <xacro:include filename="$(find spot_description)/urdf/spot.ros2_control.xacro" />
   <xacro:include filename="$(find spot_description)/urdf/spot.physics.gazebo.xacro" />
-  
+
   <!-- General parameters -->
 
   <!-- String that will be prepended to all joints and links-->
@@ -40,14 +40,15 @@
   <!-- Load Spot -->
   <xacro:load_spot
     arm="$(arg arm)"
+    custom_gripper_base_link="palm_link"
     feet="$(arg feet)"
-    tf_prefix="$(arg tf_prefix)" 
+    tf_prefix="$(arg tf_prefix)"
     gripperless="$(arg gripperless)"
 	  include_transmissions="$(arg include_transmissions)" />
 
   <!-- Adding the ROS 2 control tags -->
   <xacro:if value="$(arg add_ros2_control_tag)">
-      <xacro:spot_ros2_control interface_type="$(arg hardware_interface_type)" 
+      <xacro:spot_ros2_control interface_type="$(arg hardware_interface_type)"
                                has_arm="$(arg arm)"
                                leasing="$(arg leasing)"
                                hostname="$(arg hostname)"
@@ -59,11 +60,16 @@
                                k_q_p="$(arg k_q_p)"
                                k_qd_p="$(arg k_qd_p)" />
   </xacro:if>
-  
+
   <!-- Adding cameras -->
   <xacro:if value="$(arg simulate_cameras)">
-    <xacro:include filename="$(find spot_description)/urdf/spot.sensors.gazebo.xacro" />  
+    <xacro:include filename="$(find spot_description)/urdf/spot.sensors.gazebo.xacro" />
     <xacro:add_cameras prefix="$(arg tf_prefix)" />
+    <xacro:if value="$(arg arm)">
+      <xacro:unless value="$(arg gripperless)">
+        <xacro:add_arm_camera prefix="$(arg tf_prefix)" />
+      </xacro:unless>
+    </xacro:if>
   </xacro:if>
 
   <!-- Gazebo tags -->

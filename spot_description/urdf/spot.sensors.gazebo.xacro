@@ -118,9 +118,35 @@
 
       <xacro:spot_camera prefix="${prefix}" name="back" simulate="1" />
       <xacro:fixed_joint name="camera_back_j" parent="${prefix}base_link" child="${prefix}camera_back" xyz="-0.425 0 0.01" rpy="0 0.3 ${-pi}" />
-    
+
     </xacro:macro>
-    
+
+    <!-- Gazebo sensor for gripper camera. The arm_camera_link / arm_camera_optical_frame
+         links are in spot_arm_macro.urdf and exist as TF frames on the real robot too. -->
+    <xacro:macro name="add_arm_camera" params="prefix:='' visualize:=0">
+      <gazebo reference="${prefix}arm_camera_link">
+        <sensor name="arm_camera" type="camera">
+          <pose>0 0 0 0 0 0</pose>
+          <update_rate>30</update_rate>
+          <topic>arm_camera/image</topic>
+          <visualize>${visualize}</visualize>
+          <camera>
+            <horizontal_fov>${radians(90)}</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.05</near>
+              <far>10.0</far>
+            </clip>
+            <optical_frame_id>${prefix}arm_camera_optical_frame</optical_frame_id>
+          </camera>
+        </sensor>
+      </gazebo>
+    </xacro:macro>
+
     <!-- Odometry simulation -->
     <xacro:macro name="spot_odometry_publisher">
       <gazebo>
@@ -130,9 +156,9 @@
           <odom_publish_frequency>10</odom_publish_frequency>
           <tf_topic>spot/odom</tf_topic>
         </plugin>
-      </gazebo> 
-    </xacro:macro>    
-    
+      </gazebo>
+    </xacro:macro>
+
     <!-- PosePublisher - P3D-equivalent -->
     <xacro:macro name="spot_pose_publisher">
       <gazebo>
@@ -143,8 +169,8 @@
           <update_frequency>30</update_frequency>
           <use_pose_vector_msg>false</use_pose_vector_msg>
         </plugin>
-      </gazebo> 
-    </xacro:macro>  
+      </gazebo>
+    </xacro:macro>
 
-    
+
 </robot>
