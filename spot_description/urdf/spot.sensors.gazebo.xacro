@@ -121,10 +121,11 @@
 
     </xacro:macro>
 
-    <!-- Gazebo sensor for gripper camera. The arm_camera_link / arm_camera_optical_frame
-         links are in spot_arm_macro.urdf and exist as TF frames on the real robot too. -->
+    <!-- Gazebo sensor for gripper camera. hand_color_image_sensor is named and parented
+         (directly off arm_link_wr1) to match the real robot's TF frame for this camera
+         (confirmed via tf2_echo against the real Spot driver, 2026-09). -->
     <xacro:macro name="add_arm_camera" params="prefix:='' visualize:=0">
-      <gazebo reference="${prefix}arm_camera_link">
+      <gazebo reference="${prefix}hand_color_image_sensor">
         <sensor name="arm_camera" type="camera">
           <pose>0 0 0 0 0 0</pose>
           <update_rate>30</update_rate>
@@ -141,7 +142,7 @@
               <near>0.05</near>
               <far>10.0</far>
             </clip>
-            <optical_frame_id>${prefix}arm_camera_optical_frame</optical_frame_id>
+            <optical_frame_id>${prefix}hand_color_image_sensor</optical_frame_id>
           </camera>
         </sensor>
       </gazebo>
