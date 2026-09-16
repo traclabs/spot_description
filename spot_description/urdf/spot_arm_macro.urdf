@@ -406,20 +406,14 @@
 				</transmission>
 			</xacro:if>
 
-      <!-- Gripper camera- Parented to arm_link_wr1f instead of arm_link_fngr.
-           Parenting to the finger made the camera move every with open/close. -->
-      <link name="${tf_prefix}arm_camera_link" />
-      <joint name="${tf_prefix}arm_camera_link_fixed_joint" type="fixed">
-        <origin xyz="0.14995 0 0.035" rpy="0 0 0" />
+      <!-- Gripper camera - parented to arm_link_wr1 instead of arm_link_fngr (parenting to
+           the finger made the camera move on open/close). Named/structured to match the real
+           driver's frame directly, with no separate mount link. -->
+      <link name="${tf_prefix}hand_color_image_sensor" />
+      <joint name="${tf_prefix}hand_color_image_sensor_fixed_joint" type="fixed">
+        <origin xyz="0.14995 0 0.035" rpy="${-pi/2} 0 ${-pi/2}" />
         <parent link="${tf_prefix}arm_link_wr1" />
-        <child link="${tf_prefix}arm_camera_link" />
-      </joint>
-
-      <link name="${tf_prefix}arm_camera_optical_frame" />
-      <joint name="${tf_prefix}arm_camera_optical_frame_fixed_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
-        <parent link="${tf_prefix}arm_camera_link" />
-        <child link="${tf_prefix}arm_camera_optical_frame" />
+        <child link="${tf_prefix}hand_color_image_sensor" />
       </joint>
     </xacro:unless>
   </xacro:macro>
